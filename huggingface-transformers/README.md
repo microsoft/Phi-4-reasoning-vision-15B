@@ -1,7 +1,7 @@
 ## Requirements
 
 ```
-pip install transformers>=4.56.1 torch huggingface_hub
+pip install transformers>=4.57.1 torch huggingface_hub
 ```
 
 ## Getting Started
