@@ -84,17 +84,17 @@ python -m fara.run_fara --task "what is the weather in new york now"
 
 That's it! No GPU or model downloads required.
 
-### Self-hosting with vLLM
+### Self-hosting with Transformers
 
 If you have access to GPU resources, you can run inference using HuggingFace Transformers library. This requires a GPU machine with sufficient VRAM (e.g., 40GB or more).
 
-Instructions available [here](https://github.com/microsoft/Phi-4-reasoning-vision-15B/tree/main/huggingface-transformers).
+Instructions available [here](https://github.com/microsoft/Phi-4-reasoning-vision-15B/blob/main/huggingface-transformers/README.md).
 
 ### Self-hosting with vLLM
 
 If you have access to GPU resources, you can self-host using vLLM. This requires a GPU machine with sufficient VRAM (e.g., 40GB or more).
 
-Instructions available [here](https://github.com/microsoft/Phi-4-reasoning-vision-15B/tree/main/vllm).
+Instructions available [here](https://github.com/microsoft/Phi-4-reasoning-vision-15B/blob/main/vllm/README.md).
 
 ## Citation
 
