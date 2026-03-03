@@ -1,4 +1,4 @@
-# Phi-4-Reasoning-Vision
+# Phi-4-reasoning-vision-15B
 
 [![Microsoft](https://img.shields.io/badge/Microsoft-Project-0078D4?logo=microsoft)](https://aka.ms/msaif/fara)
 [![Hugging Face Model](https://img.shields.io/badge/🤗-Model-yellow)](https://huggingface.co/microsoft/Fara-7b)
@@ -7,7 +7,7 @@
 
 ## Overview
 
-Phi-4-Reasoning-Vision-15B is a broadly capable model that can be used for a wide array of vision-language tasks such as image captioning, asking questions about images, reading documents and receipts, helping with homework, interfering about changes in sequences of images, and much more. Beyond these general capabilities it excels at math and science reasoning and at understanding and grounding elements on computer and mobile screens.
+Phi-4-reasoning-vision-15B is a broadly capable model that can be used for a wide array of vision-language tasks such as image captioning, asking questions about images, reading documents and receipts, helping with homework, interfering about changes in sequences of images, and much more. Beyond these general capabilities it excels at math and science reasoning and at understanding and grounding elements on computer and mobile screens.
 
 ## Benchmark Results
 
@@ -50,37 +50,76 @@ We've tested on the following benchmarks:
 
 ### Azure Foundry Hosting (Recommended)
 
-Deploy Fara-7B on [Azure Foundry](https://ai.azure.com/explore/models/Fara-7B/version/2/registry/azureml-msr) without needing to download weights or manage GPU infrastructure.
+Deploy Phi-4-Reasoning-Vision-15B on [Azure Foundry](https://ai.azure.com/catalog/models/Phi-4-Reasoning-Vision-15B) without needing to download weights or manage GPU infrastructure.
 
 **Setup:**
 
-1. Deploy the Fara-7B model on Azure Foundry and obtain your endpoint URL and API key
+1. Deploy the model on Azure Foundry and obtain your endpoint URL, API key and deployment name.
 
-Then create a endpoint configuration JSON file (e.g., `azure_foundry_config.json`):
+Use the following sample script, be sure to replace the following:
+- IMAGE_PATH, ENDPOINT_BASE, API_KEY, DEPLOYMENT_NAME
+- Optional: content of the payload message
 
-```json
-{
-    "model": "Fara-7B",
-    "base_url": "https://your-endpoint.inference.ml.azure.com/",
-    "api_key": "YOUR_API_KEY_HERE"
-}
+
+
+```
+import base64
+import os
+import requests
+
+IMAGE_PATH = "<replace_with_your_image>.jpg"
+
+ENDPOINT_BASE = "<your_base_endpoint_url>"
+API_KEY = "<your_api_key_here>"
+DEPLOYMENT_NAME = "Phi-4-Reasoning-Vision-15B" # replace here with your deployment name
+
+def main():
+    with open(IMAGE_PATH, "rb") as f:
+        image_b64 = base64.b64encode(f.read()).decode("utf-8")
+
+    payload = {
+        "model": "Phi-4-Reasoning-Vision-15B",
+        "messages": [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": "Describe this image in detail."},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_b64}"
+                        },
+                    },
+                ],
+            }
+        ],
+        "max_tokens": 4096,
+        "temperature": 0.0,
+    }
+
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json",
+        "azureml-model-deployment": DEPLOYMENT_NAME,
+    }
+
+    url = f"{ENDPOINT_BASE}/v1/chat/completions"
+    print(f"Requesting: {url}")
+
+    resp = requests.post(url, json=payload, headers=headers, timeout=120)
+    resp.raise_for_status()
+
+    result = resp.json()
+    print("\n--- Response ---")
+    print(result["choices"][0]["message"]["content"])
+
+
+if __name__ == "__main__":
+    main()
+
 ```
 
-Then you can run Fara-7B using this endpoint configuration.
 
-2. Run the Fara agent:
-
-```bash
-fara-cli --task "how many pages does wikipedia have" --endpoint_config azure_foundry_config.json [--headful]
-```
-
-Note: you can also specify the endpoint config with the args `--base_url [your_base_url] --api_key [your_api_key] --model [your_model_name]` instead of using a config JSON file. 
-
-Note: If you see an error that the `fara-cli` command is not found, then try:
-
-```bash
-python -m fara.run_fara --task "what is the weather in new york now"
-```
 
 That's it! No GPU or model downloads required.
 
