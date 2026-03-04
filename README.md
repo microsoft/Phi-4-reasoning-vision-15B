@@ -3,7 +3,7 @@
 [![Microsoft](https://img.shields.io/badge/Microsoft-Project-0078D4?logo=microsoft)](https://aka.ms/Phi-4-r-v-FoundryLabs)
 [![Hugging Face Model](https://img.shields.io/badge/🤗-Model-yellow)](https://huggingface.co/microsoft/Phi-4-reasoning-vision-15B)
 [![Foundry](https://img.shields.io/badge/Azure-Foundry-0089D6)](https://ai.azure.com/catalog/models/Phi-4-Reasoning-Vision-15B)
-[![Paper](https://img.shields.io/badge/Paper-2511.19663-red)](https://arxiv.org/abs/<>)
+[![Paper](https://img.shields.io/badge/Paper--red)](https://aka.ms/Phi-4-reasoning-vision-15B-TR)
 
 ## Overview
 
