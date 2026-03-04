@@ -17,9 +17,12 @@ pip install transformers==4.57.1 Pillow accelerate einops
 
 - Reference `sample.ipynb` to obtain information from your system and pick the right artifact from https://github.com/Dao-AILab/flash-attention/releases
 
-`wget https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp312-cp312-linux_x86_64.whl`
+or use the following (be sure to check the latest instructions at https://github.com/Dao-AILab/flash-attention?tab=readme-ov-file#installation-and-features):
 
-`pip install --no-dependencies --upgrade flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp312-cp312-linux_x86_64.whl`
+```
+pip install packaging wheel
+pip install flash-attn --no-build-isolation
+```
 
 
 ## Getting Started
